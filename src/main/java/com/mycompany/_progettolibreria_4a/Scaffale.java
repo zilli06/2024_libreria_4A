@@ -359,4 +359,54 @@ public class Scaffale
             
    }
    
+   public void importaCSV(String fileName) throws IOException
+   {
+       TextFile f1= new TextFile(fileName, 'R');
+       String rigaLetta;
+       String[] datiLibro;
+       String titolo;
+       String autore;
+       int numeroPagine;
+       int posizione;
+       int ripiano;
+       Libro lib;
+       
+        try 
+        {
+            while(true)
+            {
+                rigaLetta=f1.fromFile();
+                datiLibro=rigaLetta.split(";");
+                ripiano=Integer.parseInt(datiLibro[0]);
+                posizione=Integer.parseInt(datiLibro[1]);
+                titolo=datiLibro[2];
+                autore=datiLibro[3];
+                numeroPagine=Integer.parseInt(datiLibro[4]);
+                lib=new Libro(titolo, autore, numeroPagine);
+                try 
+                {
+                    this.setLibro(lib,ripiano, posizione);
+                } 
+                catch (EccezioneRipianoNonValido ex) 
+                {
+                    //non fa nulla
+                } 
+                catch (EccezionePosizioneNonValida ex) 
+                {
+                    //non fa nulla
+                } 
+                catch (EccezionePosizioneOccupata ex) 
+                {
+                    //non fa nulla
+                }  
+            }
+            
+        } 
+        catch (FileException ex) 
+        {
+            f1.close();
+        }
+       
+   }
+   
 }

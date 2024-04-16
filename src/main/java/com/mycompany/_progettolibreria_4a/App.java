@@ -327,6 +327,21 @@ public class App
                     }
                 
                     break;
+                    
+                case 8: //importa da file CSV
+                    try
+                    {
+                        s1.importaCSV(nomeFile);
+                        System.out.println("importazione avvenuta con successo.");
+                    }
+                    catch (IOException ex)
+                    {
+                        System.out.println("impossibile leggere dal file");
+                    }
+                    
+                    
+                    
+                    break;
 
             }  
         }while(voceScelta!=0);
