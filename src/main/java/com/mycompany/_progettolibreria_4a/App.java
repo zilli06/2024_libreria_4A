@@ -10,6 +10,7 @@ import eccezioni.EccezionePosizioneOccupata;
 import eccezioni.EccezionePosizioneVuota;
 import eccezioni.EccezioneRipianoNonValido;
 import eccezioni.FileException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -28,7 +29,7 @@ public class App
     {
        
         String[] vociMenu;
-        int numeroVoci=9;
+        int numeroVoci=11;
         vociMenu=new String[numeroVoci];
         Menu menu;
         int voceScelta;
@@ -43,6 +44,7 @@ public class App
         String[] elencoTitoliAutore;
         Libro[] libriPresenti;
         String nomeFile = "volumi.CSV";
+        String nomeFileBinario = "scaffale.bin";
         
         vociMenu[0]="\t--> Esci";
         vociMenu[1]="\t--> Visualizza tutti i volumi presenti";
@@ -53,6 +55,8 @@ public class App
         vociMenu[6]="\t--> Mostra libri presenti in ordine alfabetico di titolo";
         vociMenu[7]="\t--> Esporta i volumi su file CSV";
         vociMenu[8]="\t--> importa i volumi su file CSV";
+        vociMenu[9]="\t--> salva dati scaffale";
+        vociMenu[10]="\t--> carica dati scaffale";
         
         menu=new Menu(vociMenu);
        
@@ -338,16 +342,49 @@ public class App
                     {
                         System.out.println("impossibile leggere dal file");
                     }
-                    
+                    break;
+                
+                case 9:
+                    try
+                    {
+                        
+                        s1.salvaScaffale(nomeFileBinario);
+                        System.out.println("salvataggion avvenuto correttamente");
+                    }
+                    catch (IOException ex)
+                    {
+                        System.out.println("impossibile salvarr ");
+                    }
+                    break;
+                
+                case 10:
+                   
+                {
+                    try 
+                    {
+                        s1=s1.caricaScaffale(nomeFileBinario);
+                        System.out.println("caricamento avvenuto con successo");
+                                
+                    } 
+                    catch (FileNotFoundException ex) 
+                    {
+                        System.out.println("file non trovato");
+                    } 
+                    catch (ClassNotFoundException ex) 
+                    {
+                        System.out.println("file non trovato");
+                    }
+                }
                     
                     
                     break;
 
+                    
             }  
         }while(voceScelta!=0);
         
         
-    
+        
     }
     
 }
